@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIMT CSE Student Campus Portal</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f6fa;color:#20242b;line-height:1.6}
+header{position:sticky;top:0;z-index:5;background:#101827;color:#fff;padding:15px 5%;display:flex;justify-content:space-between;align-items:center}
+header b{font-size:21px}header b span{color:#ffcc33}nav a{color:#fff;text-decoration:none;margin-left:15px;font-size:14px}
+.hero{padding:70px 6%;color:white;background:linear-gradient(135deg,#111827,#a5121b)}
+.hero h1{font-size:clamp(38px,7vw,64px);line-height:1.05;margin:15px 0}.hero p{max-width:700px;font-size:18px}
+.btn{display:inline-block;margin-top:15px;padding:12px 20px;background:#e21b25;color:white;text-decoration:none;border-radius:8px;font-weight:bold}
+section{max-width:1150px;margin:auto;padding:45px 20px}.title{color:#173b75;font-size:30px;margin-bottom:5px}.sub{color:#687080;margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}.card,.notice,details{background:#fff;border-radius:13px;padding:20px;box-shadow:0 4px 18px #0001}
+.card h3{margin-top:0;color:#173b75}.notice{border-left:5px solid #b5121b;margin:14px 0}.notice b{display:block}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}th,td{padding:12px;text-align:left;border-bottom:1px solid #ddd;font-size:14px}th{background:#17233a;color:white}
+.members{display:flex;flex-wrap:wrap;gap:10px}.member{background:white;border:1px solid #ddd;padding:10px 14px;border-radius:25px}
+details{margin:10px 0}summary{font-weight:bold;cursor:pointer}
+.contact{max-width:none;background:#111827;color:white}.contact .title{color:white}.contact .sub{color:#ccd3df}
+footer{background:#080c13;color:#b9c0cb;text-align:center;padding:22px;font-size:13px}
+@media(max-width:700px){nav{display:none}section{padding:35px 15px}.hero{padding:55px 20px}}
+</style>
+</head>
+<body>
+<header><b>AIMT <span>CSE</span></b><nav>
+<a href="#notices">Notices</a><a href="#events">Events</a><a href="#academic">Academics</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+</nav></header>
+
+<div class="hero">
+<div><small>B.Tech CSE • Academic Session 2026–27</small>
+<h1>Student Campus Portal</h1>
+<p>Ambalika Institute of Management & Technology — CSE student information, notices, academics, labs, events and important contacts in one place.</p>
+<a class="btn" href="#notices">View Updates →</a></div>
+</div>
+
+<section id="notices"><h2 class="title">Latest Notices</h2><p class="sub">Important AIMT student updates.</p>
+<div class="notice"><b>AKTU Online Student Grievance Redressal Portal</b>Operational from 04 August 2026. Covers examination result, re-evaluation/result correction, marks update/correction, marksheet, degree and other examination grievances.</div>
+<div class="notice"><b>Odd Semester Classes</b>Classes commenced from 01 August 2026. Students were required to report between 01/08/2026 and 03/08/2026. Late reporting may require HOD approval and ₹1,000 late reporting/re-admission fee.</div>
+<div class="notice"><b>Late Fee Notice</b>A ₹1,000 late fee was announced for unpaid Odd Semester fee, bus fee or other applicable dues for the period specified in the notice dated 28/07/2026.</div>
+</section>
+
+<section id="events"><h2 class="title">Latest Events</h2><p class="sub">Campus activities and technical opportunities.</p>
+<div class="grid">
+<div class="card"><h3>Technical Quiz Arena 2.0</h3><p><b>10 August 2026</b><br>ENIGMA Technical Club, CSE. Ground Floor CNC Lab, 2:20 PM–3:30 PM. Think • Code • Solve • Win.</p></div>
+<div class="card"><h3>Smart Ambalika Hackathon (SAH) 2026</h3><p><b>17–18 August 2026</b><br>Real-world problem solving. Team size: 6 members including at least one female member. Poster registration deadline: 13 August 2026.</p></div>
+<div class="card"><h3>SPARK-O-FEST 2.0</h3><p><b>28–29 November 2026</b><br>National Conclave on Innovation & Entrepreneurship. Start-up pitch, ideathon, poster presentation and innovation display. Theme: IDEA-2-IMPACT.</p></div>
+<div class="card"><h3>SDC Election 2K26</h3><p>Student Development Council election highlighting leadership, unity, innovation and student welfare.</p></div>
+</div></section>
+
+<section id="academic"><h2 class="title">CSE Academic Information</h2><p class="sub">B.Tech CSE • Year 2 • SEC-C • Room 406</p>
+<div class="grid">
+<div class="card"><h3>HOD</h3><p><b>Alok Mishra</b></p></div><div class="card"><h3>Deputy HOD</h3><p><b>Vipin Rawat</b></p></div><div class="card"><h3>Class Coordinator</h3><p>Ms. Versha Verma</p></div>
+</div>
+<h3>CSE Labs / Practical Courses</h3>
+<table><tr><th>Course</th><th>Code</th><th>Faculty</th><th>Location</th></tr>
+<tr><td>Data Structures Using C</td><td>BCS351</td><td>Mr. Arvind Kumar (AK)</td><td>Lab-4, 3rd Floor</td></tr>
+<tr><td>Computer Organization Lab</td><td>BCS352</td><td>Miss Huma Parveen (MH)</td><td>COA Lab, 1st Floor</td></tr>
+<tr><td>Web Designing Workshop</td><td>BCS353</td><td>Mr. Tushar Kanoujia (TK)</td><td>Lab-3, 3rd Floor</td></tr>
+<tr><td>Mini Project / Internship Assessment</td><td>BCS351</td><td>Mrs. Susheel Kumar (SK)</td><td>CNC Lab, Ground Floor</td></tr>
+<tr><td>Java Training</td><td>JAVA-S3</td><td>NF</td><td>Room 406, 3rd Floor</td></tr>
+</table>
+<h3>Faculty Snapshot</h3><div class="grid">
+<div class="card"><h3>Maths IV</h3><p>Mr. Umakant Pandey (UP)</p></div><div class="card"><h3>Universal Human Values</h3><p>Mr. Tushar Kanoujia (TK)</p></div>
+<div class="card"><h3>Cyber Security</h3><p>Mr. Tushar Kanoujia (TK)</p></div><div class="card"><h3>Data Structure</h3><p>Mr. Arvind Kumar (AK)</p></div>
+<div class="card"><h3>Computer Organization</h3><p>Miss Huma Parveen (MH)</p></div><div class="card"><h3>Discrete Structures</h3><p>Dr. Versha Verma (VV)</p></div>
+<div class="card"><h3>Numerical & Reasoning</h3><p>Mr. Sudheer Kumar (SK)</p></div>
+</div></section>
+
+<section><h2 class="title">Student Team</h2><div class="members">
+<span class="member">Saurabh Kumar</span><span class="member">Iqra Fatima</span><span class="member">Pragati Dixit</span><span class="member">Akanksha Gupta</span><span class="member">Shujal Kushwaha</span><span class="member">Shoel Bharti</span>
+</div></section>
+
+<section id="faq"><h2 class="title">Common Student Questions</h2>
+<details><summary>Who is the CSE HOD?</summary><p>HOD: Alok Mishra. Deputy HOD: Vipin Rawat.</p></details>
+<details><summary>Where is the CSE classroom?</summary><p>B.Tech CSE Year 2 SEC-C is listed in Room 406, 3rd Floor.</p></details>
+<details><summary>Where can I raise an examination grievance?</summary><p>Through the AKTU Online Student Grievance Redressal Portal. Keep the generated Grievance ID for tracking.</p></details>
+<details><summary>Where are the CSE practical labs?</summary><p>Labs listed in the timetable include Lab-3, Lab-4, COA Lab and CNC Lab.</p></details>
+</section>
+
+<section id="contact" class="contact"><div style="max-width:1150px;margin:auto"><h2 class="title">College Contact & Address</h2>
+<div class="grid">
+<div class="card"><h3>Main Campus</h3><p>Maurawan Road, Mohanlalganj, Lucknow, Uttar Pradesh – 226301</p></div>
+<div class="card"><h3>Head Office</h3><p>Ambalika Building, Subhash Marg, Near Sudarshan Cinema, Charbagh, Lucknow, Uttar Pradesh</p></div>
+<div class="card"><h3>Admission Lines</h3><p>+91 96518 28006<br>+91 96518 28007</p></div>
+<div class="card"><h3>General / Admin</h3><p>+91 78804 99924<br>+91 78804 99970<br>+91 94151 58766<br>(0522) 2962493</p></div>
+</div></div></section>
+<footer>© 2026 AIMT CSE Student Campus Portal • For student information and academic reference</footer>
+</body></html>
