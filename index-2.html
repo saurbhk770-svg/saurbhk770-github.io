@@ -27,11 +27,21 @@ section{max-width:1150px;margin:55px auto;padding:0 22px}.title{display:flex;jus
 footer{text-align:center;margin-top:80px;padding:35px 20px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
 @media(max-width:800px){nav{margin:8px}.links{display:none}.hero{grid-template-columns:1fr;margin-top:35px}.scene{height:290px}.cube,.face{width:155px;height:155px}.front{transform:translateZ(77.5px)}.back{transform:rotateY(180deg) translateZ(77.5px)}.right{transform:rotateY(90deg) translateZ(77.5px)}.left{transform:rotateY(-90deg) translateZ(77.5px)}.top{transform:rotateX(90deg) translateZ(77.5px)}.bottom{transform:rotateX(-90deg) translateZ(77.5px)}.grid,.contact{grid-template-columns:1fr}h1{font-size:58px}}
 </style>
+<style>
+.searchbox{max-width:850px;margin:0 auto 25px;display:flex;gap:10px}
+.searchbox input{flex:1;padding:16px 18px;border-radius:16px;border:1px solid #ffffff22;background:#ffffff0b;color:#fff;outline:none;font-size:16px}
+.searchbox input::placeholder{color:#858ba0}.searchbox button{padding:0 20px;border:0;border-radius:16px;background:linear-gradient(135deg,#ff2450,#7540ff);color:#fff;font-weight:800;cursor:pointer}
+#searchStatus{text-align:center;color:#aab0c5;font-size:13px;margin:8px 0 18px}
+.search-results{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.result{padding:18px;border:1px solid #ffffff18;border-radius:18px;background:#ffffff07}
+.result h3{margin:0 0 7px}.result p{color:#aab0c5;font-size:14px;margin:0}.result .kind{display:inline-block;margin-bottom:8px;color:#20d9ff;font-size:10px;font-weight:800;letter-spacing:1px}
+@media(max-width:800px){.search-results{grid-template-columns:1fr}.searchbox{flex-direction:column}.searchbox button{padding:14px}}
+</style>
 </head>
 <body>
 <nav>
   <div class="brand"><div class="logo">A</div><div><span>AIMT CampusAI</span><small>STUDENT INFORMATION HUB</small></div></div>
-  <div class="links"><a href="#notices">Notices</a><a href="#events">Events</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></div>
+  <div class="links"><a href="#search">Search</a><a href="#notices">Notices</a><a href="#events">Events</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></div>
 </nav>
 
 <main>
@@ -47,6 +57,15 @@ footer{text-align:center;margin-top:80px;padding:35px 20px;border-top:1px solid 
   </div></div>
 </section>
 
+<section id="search">
+<div class="title"><h2>🔎 CampusAI Search</h2><p>Search notices, events, faculty, labs and FAQs</p></div>
+<div class="searchbox">
+<input id="campusSearch" type="search" placeholder="Try: hackathon, Alok Mishra, grievance, CNC lab..." autocomplete="off">
+<button onclick="runCampusSearch()">Search</button>
+</div>
+<div id="searchStatus">Start typing to search the campus knowledge base.</div>
+<div id="searchResults" class="search-results"></div>
+</section>
 <section id="notices">
 <div class="title"><div><h2>📢 Latest Notices</h2><p>Important updates for students</p></div></div>
 <div class="grid">
@@ -88,5 +107,43 @@ footer{text-align:center;margin-top:80px;padding:35px 20px;border-top:1px solid 
 </main>
 
 <footer>AIMT CampusAI · Student Information Hub · Built for a smarter campus experience</footer>
+<script>
+const campusData=[
+["NOTICE","AKTU Grievance Portal","Online grievance facility operational from 04 August 2026 for examination results, re-evaluation, marks, marksheets and degree issues."],
+["NOTICE","Odd Semester Classes","Odd semester classes commenced from 01 August 2026. Students were required to report between 01 and 03 August."],
+["NOTICE","Late Fee Notice","A late fee of ₹1,000 was notified for unpaid semester fee, bus fee or other applicable dues."],
+["EVENT","Technical Quiz Arena 2.0","10 August 2026. Enigma Technical Club, Department of CSE. CNC Lab, 2:20 PM."],
+["EVENT","Smart Ambalika Hackathon","17–18 August 2026. Real-world problem solving. Team size: 6 members including at least one female member."],
+["EVENT","Spark-O-Fest 2.0","28–29 November 2026. Start-up pitch, ideathon, poster presentation and innovation display."],
+["EVENT","SDC Election 2K26","Student Development Council election focused on leadership, unity, innovation and student welfare."],
+["FACULTY","CSE HOD","Alok Mishra. Deputy HOD: Vipin Rawat."],
+["FACULTY","Class Coordinator","Ms. Versha Verma."],
+["LAB","Data Structures Using C","BCS351. Mr. Arvind Kumar (AK). Lab-4, 3rd Floor."],
+["LAB","Computer Organization Lab","BCS352. Miss Huma Parveen (MH). COA Lab, 1st Floor."],
+["LAB","Web Designing Workshop","BCS353. Mr. Tushar Kanoujia (TK). Lab-3, 3rd Floor."],
+["LAB","Mini Project / Internship Assessment","BCS351. Mrs. Susheel Kumar (SK). CNC Lab, Ground Floor."],
+["LAB","Java Training","JAVA-S3. Room 406, 3rd Floor."],
+["ACADEMIC","CSE Classroom","B.Tech CSE Year 2 SEC-C — Room 406, 3rd Floor."],
+["CONTACT","Main Campus","Maurawan Road, Mohanlalganj, Lucknow, Uttar Pradesh – 226301."],
+["CONTACT","Head Office","Ambalika Building, Subhash Marg, Near Sudarshan Cinema, Charbagh, Lucknow, Uttar Pradesh."],
+["CONTACT","Important Contacts","Admission: +91 96518 28006 / +91 96518 28007. General: +91 78804 99924 / +91 78804 99970. Administrative: +91 94151 58766. Landline: (0522) 2962493."],
+["TEAM","Project Team","Saurabh Kumar, Iqra Fatima, Pragati Dixit, Akanksha Gupta, Shujal Kushwaha, Shoel Bharti."]
+];
+
+function esc(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]));}
+function runCampusSearch(){
+ const q=document.getElementById("campusSearch").value.trim().toLowerCase();
+ const box=document.getElementById("searchResults"),status=document.getElementById("searchStatus");
+ if(!q){box.innerHTML="";status.textContent="Start typing to search the campus knowledge base.";return;}
+ const r=campusData.filter(x=>(x[0]+" "+x[1]+" "+x[2]).toLowerCase().includes(q));
+ status.textContent=r.length?r.length+" result"+(r.length>1?"s":"")+" found":"No matching campus information found. Try another keyword.";
+ box.innerHTML=r.map(x=>'<article class="result"><div class="kind">'+esc(x[0])+'</div><h3>'+esc(x[1])+'</h3><p>'+esc(x[2])+'</p></article>').join("");
+}
+document.addEventListener("DOMContentLoaded",()=>{
+ const i=document.getElementById("campusSearch");
+ i.addEventListener("input",runCampusSearch);
+ i.addEventListener("keydown",e=>{if(e.key==="Enter")runCampusSearch()});
+});
+</script>
 </body>
 </html>
