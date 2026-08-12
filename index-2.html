@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIMT CampusAI</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#050611;--card:rgba(16,20,42,.68);--line:rgba(255,255,255,.12);--red:#ff244f;--cyan:#22d9ff;--purple:#9d5cff;--text:#f6f7ff;--muted:#aab0c5}
+body{font-family:Inter,system-ui,Arial;background:radial-gradient(circle at 15% 15%,#24104b 0,transparent 32%),radial-gradient(circle at 90% 10%,#082d46 0,transparent 30%),var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:45px 45px;mask-image:linear-gradient(to bottom,#000,transparent 90%)}
+nav{position:sticky;top:12px;z-index:20;margin:12px auto;max-width:1150px;padding:12px 18px;border:1px solid var(--line);border-radius:22px;background:rgba(5,6,17,.72);backdrop-filter:blur(18px);display:flex;align-items:center;justify-content:space-between;box-shadow:0 15px 45px #0008}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900}.logo{width:43px;height:43px;border-radius:14px;background:linear-gradient(145deg,#ff3159,#7617ff);display:grid;place-items:center;box-shadow:0 0 25px #ff244f66;transform:rotate(-5deg)}
+.brand span{font-size:18px}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:2px}
+nav a{color:#dce0f0;text-decoration:none;margin-left:20px;font-size:14px}nav a:hover{color:var(--cyan)}
+.hero{max-width:1150px;margin:65px auto 35px;padding:30px 22px;display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:center}
+.badge{display:inline-block;padding:8px 14px;border:1px solid #ff315955;border-radius:999px;background:#ff315910;color:#ff718c;font-size:12px;letter-spacing:1.5px}
+h1{font-size:clamp(48px,8vw,92px);line-height:.9;margin:20px 0;background:linear-gradient(100deg,#fff 15%,#ff3159 48%,#8d6cff 75%,#22d9ff);-webkit-background-clip:text;color:transparent;text-shadow:0 20px 55px #000}
+.hero p{color:var(--muted);font-size:17px;line-height:1.7;max-width:680px}.btns{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}.btn{padding:13px 20px;border-radius:14px;text-decoration:none;color:white;font-weight:800;background:linear-gradient(135deg,#ff244f,#762dff);box-shadow:0 12px 35px #8d2cff33}.btn.alt{background:#ffffff08;border:1px solid var(--line)}
+.scene{height:390px;display:grid;place-items:center;perspective:900px}.cube{width:210px;height:210px;position:relative;transform-style:preserve-3d;animation:spin 14s linear infinite}.face{position:absolute;width:210px;height:210px;border:1px solid #ffffff2b;background:linear-gradient(135deg,#ff244f33,#632cff2a);backdrop-filter:blur(4px);display:grid;place-items:center;font-size:27px;font-weight:900;box-shadow:inset 0 0 50px #22d9ff12,0 0 35px #762dff22}.front{transform:translateZ(105px)}.back{transform:rotateY(180deg) translateZ(105px)}.right{transform:rotateY(90deg) translateZ(105px)}.left{transform:rotateY(-90deg) translateZ(105px)}.top{transform:rotateX(90deg) translateZ(105px)}.bottom{transform:rotateX(-90deg) translateZ(105px)}
+@keyframes spin{to{transform:rotateX(360deg) rotateY(360deg)}}
+section{max-width:1150px;margin:55px auto;padding:0 22px}.title{display:flex;justify-content:space-between;align-items:end;margin-bottom:20px}.title h2{font-size:30px}.title p{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{position:relative;padding:22px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,#ffffff0a,#ffffff03);box-shadow:0 20px 55px #0006;transition:.35s;overflow:hidden}.card:before{content:"";position:absolute;width:130px;height:130px;background:var(--glow,#ff244f);filter:blur(65px);opacity:.15;right:-45px;top:-50px}.card:hover{transform:translateY(-8px) rotateX(2deg);border-color:#ffffff30}.icon{font-size:30px}.card h3{margin:12px 0 8px}.card p{color:var(--muted);font-size:14px;line-height:1.6}.tag{display:inline-block;margin-top:15px;padding:6px 9px;border-radius:9px;background:#ffffff08;color:#cbd0e2;font-size:11px}
+.event .date{color:#ff718c;font-weight:900;font-size:13px}.event h3{font-size:20px}
+.faq{display:grid;gap:10px}.faq details{border:1px solid var(--line);border-radius:16px;background:#ffffff06;padding:16px 18px}.faq summary{cursor:pointer;font-weight:800}.faq p{color:var(--muted);padding-top:10px;line-height:1.6}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:18px}.contact .card strong{color:#fff}.contact a{color:var(--cyan);text-decoration:none}
+footer{text-align:center;margin-top:80px;padding:35px 20px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+@media(max-width:800px){nav{margin:8px}.links{display:none}.hero{grid-template-columns:1fr;margin-top:35px}.scene{height:290px}.cube,.face{width:155px;height:155px}.front{transform:translateZ(77.5px)}.back{transform:rotateY(180deg) translateZ(77.5px)}.right{transform:rotateY(90deg) translateZ(77.5px)}.left{transform:rotateY(-90deg) translateZ(77.5px)}.top{transform:rotateX(90deg) translateZ(77.5px)}.bottom{transform:rotateX(-90deg) translateZ(77.5px)}.grid,.contact{grid-template-columns:1fr}h1{font-size:58px}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="brand"><div class="logo">A</div><div><span>AIMT CampusAI</span><small>STUDENT INFORMATION HUB</small></div></div>
+  <div class="links"><a href="#notices">Notices</a><a href="#events">Events</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></div>
+</nav>
+
+<main>
+<section class="hero">
+  <div>
+    <span class="badge">AMBALIKA INSTITUTE OF MANAGEMENT & TECHNOLOGY</span>
+    <h1>Your Campus.<br>Your Voice.</h1>
+    <p>A modern student information hub for AIMT — bringing notices, campus events, student FAQs and important contacts together in one place.</p>
+    <div class="btns"><a class="btn" href="#notices">Explore Campus</a><a class="btn alt" href="#events">Upcoming Events →</a></div>
+  </div>
+  <div class="scene"><div class="cube">
+    <div class="face front">AIMT</div><div class="face back">AI</div><div class="face right">CSE</div><div class="face left">2026</div><div class="face top">∞</div><div class="face bottom">CAMPUS</div>
+  </div></div>
+</section>
+
+<section id="notices">
+<div class="title"><div><h2>📢 Latest Notices</h2><p>Important updates for students</p></div></div>
+<div class="grid">
+<div class="card"><div class="icon">🧾</div><h3>AKTU Grievance Portal</h3><p>Online grievance facility operational from 04 August 2026 for examination results, re-evaluation, marks, marksheets and degree-related issues.</p><span class="tag">01 AUG 2026</span></div>
+<div class="card"><div class="icon">🎓</div><h3>Odd Semester Classes</h3><p>Odd semester classes commenced from 01 August 2026. Students reporting after 03 August may be treated as late reporting cases.</p><span class="tag">29 JUL 2026</span></div>
+<div class="card"><div class="icon">💰</div><h3>Late Fee Notice</h3><p>A late fee of ₹1,000 was notified for unpaid Odd Semester Fee, Bus Fee or other applicable dues during the specified period.</p><span class="tag">28 JUL 2026</span></div>
+</div>
+</section>
+
+<section id="events">
+<div class="title"><div><h2>🚀 Campus Events</h2><p>Latest & upcoming activities</p></div></div>
+<div class="grid">
+<div class="card event"><div class="date">10 AUGUST 2026</div><h3>Technical Quiz Arena 2.0</h3><p>Think • Code • Solve • Win. Organized by Enigma Technical Club, Department of CSE.</p><span class="tag">CNC LAB · 2:20 PM</span></div>
+<div class="card event"><div class="date">17–18 AUGUST 2026</div><h3>Smart Ambalika Hackathon</h3><p>College-level initiative to solve real-world problems of government, industries and NGOs.</p><span class="tag">6 MEMBER TEAM</span></div>
+<div class="card event"><div class="date">28–29 NOVEMBER 2026</div><h3>Spark-O-Fest 2.0</h3><p>Idea-2-Impact: start-up pitch, ideathon, poster presentation, innovation display and more.</p><span class="tag">LUCKNOW</span></div>
+<div class="card event"><div class="date">AUGUST 2026</div><h3>SDC Election 2K26</h3><p>Student Development Council election initiative focused on leadership, unity, innovation and welfare.</p><span class="tag">YOUR VOICE · YOUR CHOICE</span></div>
+</div>
+</section>
+
+<section id="faq">
+<div class="title"><div><h2>❓ Student Help Desk</h2><p>Common questions, answered quickly</p></div></div>
+<div class="faq">
+<details><summary>Where can I submit an examination grievance?</summary><p>Through the AKTU Online Student Grievance Redressal Portal. Keep the generated Grievance ID for tracking.</p></details>
+<details><summary>What can the grievance portal be used for?</summary><p>Examination results, result correction/re-evaluation, marks update/correction, marksheet issues, degree issues and other examination-related grievances.</p></details>
+<details><summary>When did Odd Semester classes start?</summary><p>Classes for the Odd Semester commenced from 01 August 2026.</p></details>
+<details><summary>Where is AIMT located?</summary><p>The main institute is on Maurawan Road, Mohanlalganj, Lucknow, Uttar Pradesh – 226301.</p></details>
+</div>
+</section>
+
+<section id="contact">
+<div class="title"><div><h2>📍 Contact AIMT</h2><p>College locations & important numbers</p></div></div>
+<div class="contact">
+<div class="card"><h3>Main Campus</h3><p><strong>Ambalika Institute of Management & Technology</strong><br>Maurawan Road, Mohanlalganj, Lucknow, Uttar Pradesh – 226301</p></div>
+<div class="card"><h3>Head Office</h3><p><strong>Ambalika Building</strong><br>Subhash Marg, Near Sudarshan Cinema, Charbagh, Lucknow, Uttar Pradesh</p></div>
+<div class="card"><h3>📞 Important Contacts</h3><p>Admission: +91 96518 28006 / +91 96518 28007<br>General: +91 78804 99924 / +91 78804 99970<br>Administrative: +91 94151 58766<br>Landline: (0522) 2962493</p></div>
+<div class="card"><h3>🎓 Student Team</h3><p>Saurabh Kumar · Iqra Fatima · Pragati Dixit · Akanksha Gupta · Shujal Kushwaha · Shoel Bharti</p></div>
+</div>
+</section>
+</main>
+
+<footer>AIMT CampusAI · Student Information Hub · Built for a smarter campus experience</footer>
+</body>
+</html>
