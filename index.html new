@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AIMT CampusAI</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+--bg:#050611;
+--card:#11162b;
+--red:#ff2450;
+--purple:#874cff;
+--cyan:#20d9ff;
+--white:#f7f8ff;
+--muted:#aab0c5;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+color:var(--white);
+background:
+radial-gradient(circle at 10% 10%,#35105b,transparent 30%),
+radial-gradient(circle at 90% 5%,#063c50,transparent 28%),
+var(--bg);
+line-height:1.6;
+overflow-x:hidden;
+}
+
+body:before{
+content:"";
+position:fixed;
+inset:0;
+pointer-events:none;
+background-image:
+linear-gradient(#ffffff08 1px,transparent 1px),
+linear-gradient(90deg,#ffffff08 1px,transparent 1px);
+background-size:45px 45px;
+}
+
+/* NAVBAR */
+
+nav{
+position:sticky;
+top:10px;
+z-index:20;
+max-width:1150px;
+margin:10px auto;
+padding:13px 18px;
+border:1px solid #ffffff20;
+border-radius:22px;
+background:#050611cc;
+backdrop-filter:blur(18px);
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:12px;
+font-weight:bold;
+}
+
+.logo{
+width:44px;
+height:44px;
+border-radius:14px;
+display:grid;
+place-items:center;
+font-size:20px;
+font-weight:900;
+background:linear-gradient(135deg,var(--red),var(--purple));
+box-shadow:0 0 25px #ff245066;
+}
+
+.brand small{
+display:block;
+color:var(--muted);
+font-size:9px;
+letter-spacing:2px;
+}
+
+nav a{
+color:#ddd;
+text-decoration:none;
+margin-left:18px;
+font-size:14px;
+}
+
+nav a:hover{color:var(--cyan)}
+
+/* HERO */
+
+.hero{
+max-width:1150px;
+margin:55px auto 30px;
+padding:25px 22px;
+display:grid;
+grid-template-columns:1.2fr .8fr;
+gap:35px;
+align-items:center;
+}
+
+.badge{
+display:inline-block;
+padding:8px 14px;
+border:1px solid #ff245055;
+border-radius:30px;
+color:#ff718c;
+font-size:11px;
+letter-spacing:1.5px;
+}
+
+h1{
+font-size:clamp(50px,8vw,90px);
+line-height:.92;
+margin:20px 0;
+background:linear-gradient(
+100deg,#fff,#ff2450,#914cff,#20d9ff
+);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+.hero p{
+color:var(--muted);
+font-size:17px;
+max-width:650px;
+}
+
+.buttons{
+display:flex;
+gap:12px;
+margin-top:25px;
+flex-wrap:wrap;
+}
+
+.btn{
+padding:13px 20px;
+border-radius:14px;
+color:white;
+text-decoration:none;
+font-weight:bold;
+background:linear-gradient(135deg,var(--red),var(--purple));
+box-shadow:0 12px 35px #7540ff33;
+}
+
+.btn.alt{
+background:#ffffff08;
+border:1px solid #ffffff20;
+}
+
+/* 3D CUBE */
+
+.scene{
+height:350px;
+display:grid;
+place-items:center;
+perspective:900px;
+}
+
+.cube{
+width:190px;
+height:190px;
+position:relative;
+transform-style:preserve-3d;
+animation:rotate 12s linear infinite;
+}
+
+.face{
+position:absolute;
+width:190px;
+height:190px;
+border:1px solid #ffffff35;
+background:linear-gradient(
+135deg,#ff245044,#7540ff33
+);
+display:grid;
+place-items:center;
+font-size:25px;
+font-weight:900;
+box-shadow:inset 0 0 50px #20d9ff12;
+}
+
+.front{transform:translateZ(95px)}
+.back{transform:rotateY(180deg) translateZ(95px)}
+.right{transform:rotateY(90deg) translateZ(95px)}
+.left{transform:rotateY(-90deg) translateZ(95px)}
+.top{transform:rotateX(90deg) translateZ(95px)}
+.bottom{transform:rotateX(-90deg) translateZ(95px)}
+
+@keyframes rotate{
+from{transform:rotateX(0) rotateY(0)}
+to{transform:rotateX(360deg) rotateY(360deg)}
+}
+
+/* SECTIONS */
+
+section{
+max-width:1150px;
+margin:55px auto;
+padding:0 22px;
+}
+
+.title{
+margin-bottom:22px;
+}
+
+.title h2{
+font-size:30px;
+}
+
+.title p{
+color:var(--muted);
+font-size:13px;
+}
+
+/* SEARCH */
+
+.search-box{
+display:flex;
+gap:10px;
+margin-bottom:18px;
+}
+
+.search-box input{
+flex:1;
+padding:16px;
+border-radius:15px;
+border:1px solid #ffffff20;
+background:#ffffff09;
+color:white;
+outline:none;
+font-size:16px;
+}
+
+.search-box input::placeholder{
+color:#858ba0;
+}
+
+.search-box button{
+padding:0 22px;
+border:0;
+border-radius:15px;
+color:white;
+font-weight:bold;
+cursor:pointer;
+background:linear-gradient(135deg,var(--red),var(--purple));
+}
+
+#searchStatus{
+color:var(--muted);
+font-size:13px;
+margin-bottom:18px;
+}
+
+.results{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+}
+
+.result{
+padding:18px;
+border:1px solid #ffffff18;
+border-radius:18px;
+background:#ffffff07;
+}
+
+.result span{
+color:var(--cyan);
+font-size:10px;
+font-weight:bold;
+letter-spacing:1px;
+}
+
+.result h3{
+margin:8px 0;
+}
+
+.result p{
+color:var(--muted);
+font-size:14px;
+}
+
+/* CARDS */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
+}
+
+.card{
+position:relative;
+padding:22px;
+border:1px solid #ffffff18;
+border-radius:22px;
+background:linear-gradient(
+145deg,#ffffff0b,#ffffff03
+);
+box-shadow:0 20px 50px #0007;
+transition:.3s;
+overflow:hidden;
+}
+
+.card:hover{
+transform:translateY(-8px);
+border-color:#ffffff35;
+}
+
+.card h3{
+margin:10px 0 7px;
+}
+
+.card p{
+color:var(--muted);
+font-size:14px;
+}
+
+.icon{
+font-size:30px;
+}
+
+.tag{
+display:inline-block;
+margin-top:14px;
+padding:5px 9px;
+border-radius:8px;
+background:#ffffff0b;
+font-size:10px;
+color:#cdd3e5;
+}
+
+/* FAQ */
+
+details{
+background:#ffffff07;
+border:1px solid #ffffff15;
+border-radius:15px;
+padding:16px;
+margin:10px 0;
+}
+
+summary{
+font-weight:bold;
+cursor:pointer;
+}
+
+details p{
+color:var(--muted);
+padding-top:10px;
+}
+
+/* CONTACT */
+
+.contact{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+}
+
+/* FOOTER */
+
+footer{
+margin-top:80px;
+padding:35px 20px;
+text-align:center;
+border-top:1px solid #ffffff15;
+color:var(--muted);
+font-size:13px;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+nav{
+margin:7px;
+}
+
+.links{
+display:none;
+}
+
+.hero{
+grid-template-columns:1fr;
+margin-top:30px;
+}
+
+.grid,
+.results,
+.contact{
+grid-template-columns:1fr;
+}
+
+.scene{
+height:270px;
+}
+
+.cube,
+.face{
+width:150px;
+height:150px;
+}
+
+.front{transform:translateZ(75px)}
+.back{transform:rotateY(180deg) translateZ(75px)}
+.right{transform:rotateY(90deg) translateZ(75px)}
+.left{transform:rotateY(-90deg) translateZ(75px)}
+.top{transform:rotateX(90deg) translateZ(75px)}
+.bottom{transform:rotateX(-90deg) translateZ(75px)}
+
+.search-box{
+flex-direction:column;
+}
+
+.search-box button{
+padding:14px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+
+<nav>
+
+<div class="brand">
+
+<div class="logo">A</div>
+
+<div>
+AIMT CampusAI
+<small>STUDENT INFORMATION HUB</small>
+</div>
+
+</div>
+
+<div class="links">
+<a href="#search">Search</a>
+<a href="#notices">Notices</a>
+<a href="#events">Events</a>
+<a href="#academic">Academics</a>
+<a href="#faq">FAQ</a>
+<a href="#contact">Contact</a>
+</div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div>
+
+<span class="badge">
+AMBALIKA INSTITUTE OF MANAGEMENT & TECHNOLOGY
+</span>
+
+<h1>
+Your Campus.<br>
+Your Voice.
+</h1>
+
+<p>
+A modern student information hub for AIMT.
+Find notices, events, academic information,
+faculty, labs, FAQs and important contacts
+in one place.
+</p>
+
+<div class="buttons">
+
+<a class="btn" href="#search">
+🔎 Search Campus
+</a>
+
+<a class="btn alt" href="#events">
+🚀 Explore Events →
+</a>
+
+</div>
+
+</div>
+
+
+<!-- 3D OBJECT -->
+
+<div class="scene">
+
+<div class="cube">
+
+<div class="face front">AIMT</div>
+<div class="face back">AI</div>
+<div class="face right">CSE</div>
+<div class="face left">2026</div>
+<div class="face top">∞</div>
+<div class="face bottom">CAMPUS</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SEARCH -->
+
+<section id="search">
+
+<div class="title">
+
+<h2>🔎 CampusAI Search</h2>
+
+<p>
+Search notices, events, faculty, labs,
+team members and campus information
+</p>
+
+</div>
+
+
+<div class="search-box">
+
+<input
+id="searchInput"
+type="search"
+placeholder="Try: hackathon, Alok Mishra, grievance, CNC lab..."
+>
+
+<button onclick="searchCampus()">
+SEARCH
+</button>
+
+</div>
+
+<div id="searchStatus">
+Start typing to search the campus knowledge base.
+</div>
+
+<div id="results" class="results"></div>
+
+</section>
+
+
+<!-- NOTICES -->
+
+<section id="notices">
+
+<div class="title">
+
+<h2>📢 Latest Notices</h2>
+
+<p>Important AIMT student updates</p>
+
+</div>
+
+
+<div class="grid">
+
+
+<div class="card">
+
+<div class="icon">🧾</div>
+
+<h3>AKTU Grievance Portal</h3>
+
+<p>
+Online grievance facility operational from
+04 August 2026 for examination results,
+re-evaluation, marks, marksheets and
+degree-related issues.
+</p>
+
+<span class="tag">IMPORTANT</span>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">🎓</div>
+
+<h3>Odd Semester Classes</h3>
+
+<p>
+Odd semester classes commenced from
+01 August 2026. Students were required
+to report between 01 and 03 August.
+</p>
+
+<span class="tag">ACADEMIC</span>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">💰</div>
+
+<h3>Late Fee Notice</h3>
+
+<p>
+A ₹1,000 late fee was notified for unpaid
+semester fee, bus fee or other applicable dues.
+</p>
+
+<span class="tag">NOTICE</span>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- EVENTS -->
+
+<section id="events">
+
+<div class="title">
+
+<h2>🚀 Campus Events</h2>
+
+<p>Latest and upcoming activities</p>
+
+</div>
+
+
+<div class="grid">
+
+
+<div class="card">
+
+<span class="tag">10 AUGUST 2026</span>
+
+<h3>Technical Quiz Arena 2.0</h3>
+
+<p>
+Think • Code • Solve • Win.
+Organized by Enigma Technical Club,
+Department of CSE.
+</p>
+
+<span class="tag">
+CNC LAB · 2:20 PM
+</span>
+
+</div>
+
+
+<div class="card">
+
+<span class="tag">17–18 AUGUST 2026</span>
+
+<h3>Smart Ambalika Hackathon</h3>
+
+<p>
+Real-world problem solving initiative.
+Team size: 6 members including
+at least one female member.
+</p>
+
+<span class="tag">HACKATHON</span>
+
+</div>
+
+
+<div class="card">
+
+<span class="tag">28–29 NOVEMBER 2026</span>
+
+<h3>Spark-O-Fest 2.0</h3>
+
+<p>
+Idea-2-Impact: Start-up Pitch,
+Ideathon, Poster Presentation
+and Innovation Display.
+</p>
+
+<span class="tag">INNOVATION</span>
+
+</div>
+
+
+<div class="card">
+
+<span class="tag">2K26</span>
+
+<h3>SDC Election</h3>
+
+<p>
+Student Development Council election
+focused on leadership, unity,
+innovation and student welfare.
+</p>
+
+<span class="tag">YOUR VOICE</span>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- ACADEMICS -->
+
+<section id="academic">
+
+<div class="title">
+
+<h2>🎓 CSE Academic Hub</h2>
+
+<p>B.Tech CSE information</p>
+
+</div>
+
+
+<div class="grid">
+
+
+<div class="card">
+
+<div class="icon">👨‍💼</div>
+
+<h3>HOD</h3>
+
+<p>
+<strong>Alok Mishra</strong>
+</p>
+
+<span class="tag">CSE DEPARTMENT</span>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">👨‍💼</div>
+
+<h3>Deputy HOD</h3>
+
+<p>
+<strong>Vipin Rawat</strong>
+</p>
+
+<span class="tag">CSE DEPARTMENT</span>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">🏫</div>
+
+<h3>CSE Classroom</h3>
+
+<p>
+Year 2 • SEC-C<br>
+Room 406 • 3rd Floor
+</p>
+
+<span class="tag">ACADEMIC</span>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">💻</div>
+
+<h3>Data Structures Using C</h3>
+
+<p>
+BCS351<br>
+Faculty: Mr. Arvind Kumar
+</p>
+
+<span class="tag">LAB-4</span>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">🌐</div>
+
+<h3>Web Designing Workshop</h3>
+
+<p>
+BCS353<br>
+Faculty: Mr. Tushar Kanoujia
+</p>
+
+<span class="tag">LAB-3</span>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">☕</div>
+
+<h3>Java Training</h3>
+
+<p>
+JAVA-S3<br>
+Room 406 • 3rd Floor
+</p>
+
+<span class="tag">TRAINING</span>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- FAQ -->
+
+<section id="faq">
+
+<div class="title">
+
+<h2>❓ Student Help Desk</h2>
+
+<p>Common questions</p>
+
+</div>
+
+
+<details>
+
+<summary>
+Where can I submit an examination grievance?
+</summary>
+
+<p>
+Through the AKTU Online Student Grievance
+Redressal Portal. Keep the generated
+Grievance ID for tracking.
+</p>
+
+</details>
+
+
+<details>
+
+<summary>
+When did Odd Semester classes start?
+</summary>
+
+<p>
+Odd Semester classes commenced from
+01 August 2026.
+</p>
+
+</details>
+
+
+<details>
+
+<summary>
+Who is the CSE HOD?
+</summary>
+
+<p>
+HOD: Alok Mishra<br>
+Deputy HOD: Vipin Rawat
+</p>
+
+</details>
+
+
+<details>
+
+<summary>
+Where is the CSE classroom?
+</summary>
+
+<p>
+B.Tech CSE Year 2 SEC-C —
+Room 406, 3rd Floor.
+</p>
+
+</details>
+
+
+</section>
+
+
+<!-- TEAM -->
+
+<section>
+
+<div class="title">
+
+<h2>👥 Project Team</h2>
+
+<p>CampusAI Hackathon Team</p>
+
+</div>
+
+
+<div class="grid">
+
+
+<div class="card">
+<h3>01 · Saurabh Kumar</h3>
+<p>Team Member</p>
+</div>
+
+
+<div class="card">
+<h3>02 · Iqra Fatima</h3>
+<p>Team Member</p>
+</div>
+
+
+<div class="card">
+<h3>03 · Pragati Gupta</h3>
+<p>Team Member</p>
+</div>
+
+
+<div class="card">
+<h3>04 · Akanksha Gupta</h3>
+<p>Team Member</p>
+</div>
+
+
+<div class="card">
+<h3>05 · Shujal Kushwaha</h3>
+<p>Team Member</p>
+</div>
+
+
+<div class="card">
+<h3>06 · Shoel Bharti</h3>
+<p>Team Member</p>
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+<div class="title">
+
+<h2>📍 Contact AIMT</h2>
+
+<p>Important college information</p>
+
+</div>
+
+
+<div class="contact">
+
+
+<div class="card">
+
+<h3>🏫 Main Campus</h3>
+
+<p>
+<strong>
+Ambalika Institute of Management & Technology
+</strong>
+<br><br>
+
+Maurawan Road, Mohanlalganj,<br>
+Lucknow, Uttar Pradesh – 226301
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>🏢 Head Office</h3>
+
+<p>
+<strong>Ambalika Building</strong>
+<br><br>
+
+Subhash Marg, Near Sudarshan Cinema,<br>
+Charbagh, Lucknow, Uttar Pradesh
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>📞 Important Contacts</h3>
+
+<p>
+
+Admission:<br>
++91 96518 28006<br>
++91 96518 28007
+
+<br><br>
+
+General:<br>
++91 78804 99924<br>
++91 78804 99970
+
+<br><br>
+
+Administrative:<br>
++91 94151 58766
+
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>📚 CSE Labs</h3>
+
+<p>
+
+Data Structures → Lab-4<br>
+Web Designing → Lab-3<br>
+Computer Organization → COA Lab<br>
+Mini Project → CNC Lab<br>
+Java Training → Room 406
+
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<footer>
+
+<strong>AIMT CampusAI</strong>
+
+<br>
+
+Student Information Hub · 2026–27
+
+<br><br>
+
+Built for a smarter campus experience.
+
+</footer>
+
+
+<script>
+
+/* CAMPUS SEARCH DATABASE */
+
+const campusData=[
+
+{
+type:"NOTICE",
+title:"AKTU Grievance Portal",
+text:"Online grievance facility operational from 04 August 2026 for examination results, re-evaluation, marks, marksheets and degree issues."
+},
+
+{
+type:"NOTICE",
+title:"Odd Semester Classes",
+text:"Odd semester classes commenced from 01 August 2026."
+},
+
+{
+type:"NOTICE",
+title:"Late Fee",
+text:"A ₹1,000 late fee was notified for unpaid semester fee, bus fee or other applicable dues."
+},
+
+{
+type:"EVENT",
+title:"Technical Quiz Arena 2.0",
+text:"10 August 2026. Enigma Technical Club. CNC Lab at 2:20 PM."
+},
+
+{
+type:"EVENT",
+title:"Smart Ambalika Hackathon",
+text:"17–18 August 2026. Six-member team including at least one female member."
+},
+
+{
+type:"EVENT",
+title:"Spark-O-Fest 2.0",
+text:"28–29 November 2026. Start-up pitch, ideathon and innovation display."
+},
+
+{
+type:"FACULTY",
+title:"HOD",
+text:"Alok Mishra is the CSE HOD."
+},
+
+{
+type:"FACULTY",
+title:"Deputy HOD",
+text:"Vipin Rawat is the CSE Deputy HOD."
+},
+
+{
+type:"LAB",
+title:"Data Structures Using C",
+text:"BCS351. Faculty: Mr. Arvind Kumar. Lab-4, 3rd Floor."
+},
+
+{
+type:"LAB",
+title:"Web Designing Workshop",
+text:"BCS353. Faculty: Mr. Tushar Kanoujia. Lab-3, 3rd Floor."
+},
+
+{
+type:"LAB",
+title:"Java Training",
+text:"JAVA-S3. Room 406, 3rd Floor."
+},
+
+{
+type:"ACADEMIC",
+title:"CSE Classroom",
+text:"B.Tech CSE Year 2 SEC-C, Room 406, 3rd Floor."
+},
+
+{
+type:"CONTACT",
+title:"Main Campus",
+text:"Maurawan Road, Mohanlalganj, Lucknow, Uttar Pradesh – 226301."
+},
+
+{
+type:"CONTACT",
+title:"Head Office",
+text:"Ambalika Building, Subhash Marg, Near Sudarshan Cinema, Charbagh, Lucknow."
+},
+
+{
+type:"TEAM",
+title:"Pragati Gupta",
+text:"Team Member of AIMT CampusAI."
+},
+
+{
+type:"TEAM",
+title:"Project Team",
+text:"Saurabh Kumar, Iqra Fatima, Pragati Gupta, Akanksha Gupta, Shujal Kushwaha and Shoel Bharti."
+}
+
+];
+
+
+/* SEARCH FUNCTION */
+
+function searchCampus(){
+
+let input=document
+.getElementById("searchInput")
+.value
+.toLowerCase()
+.trim();
+
+let results=document.getElementById("results");
+
+let status=document.getElementById("searchStatus");
+
+if(input===""){
+
+results.innerHTML="";
+
+status.innerText=
+"Start typing to search the campus knowledge base.";
+
+return;
+
+}
+
+let found=campusData.filter(item=>
+
+(item.type+" "+item.title+" "+item.text)
+.toLowerCase()
+.includes(input)
+
+);
+
+
+if(found.length===0){
+
+results.innerHTML="";
+
+status.innerText=
+"No matching information found. Try another keyword.";
+
+return;
+
+}
+
+
+status.innerText=
+found.length+
+(found.length===1?" result":" results")+
+" found";
+
+
+results.innerHTML=found.map(item=>`
+
+<div class="result">
+
+<span>${item.type}</span>
+
+<h3>${item.title}</h3>
+
+<p>${item.text}</p>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* LIVE SEARCH */
+
+document
+.getElementById("searchInput")
+.addEventListener("input",searchCampus);
+
+
+/* ENTER KEY */
+
+document
+.getElementById("searchInput")
+.addEventListener("keydown",function(e){
+
+if(e.key==="Enter"){
+
+searchCampus();
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
