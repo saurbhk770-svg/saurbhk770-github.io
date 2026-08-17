@@ -646,6 +646,34 @@ bottom:15px;
 }
 
 }
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #leaveResult, #leaveResult * {
+        visibility: visible;
+    }
+    #leaveResult {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: #ffffff !important;
+        color: #000000 !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+    #applicationText {
+        color: #000000 !important;
+        font-size: 14pt;
+        line-height: 1.8;
+    }
+    .copy-button {
+        display: none !important;
+    }
+}
+
 </style>
 </head>
 
@@ -1141,7 +1169,7 @@ onclick="copyApplication()">
 </button>
 
 <button class="copy-button" onclick="downloadApplication()">📥 Download TXT</button>
-<button class="copy-button" onclick="window.print()">🖨️ Print</button>
+<button class="copy-button" onclick="printApplication()">🖨️ Print</button>
 
 </div>
 
@@ -1651,6 +1679,13 @@ searchCampus();
 
 });
 
+function formatDatetoDDMMYYYY(datestring){
+    if(!datestring) return "";
+    const parts = datestring.split("-")
+    if(parts.length !== 3) return datestring;
+    return '${parts[2]}-${parts[1]}-${parts[0]}';
+}
+
 function generateLeaveApplication(){
     const name=document.getElementById("leaveName").value.trim();
     const roll=document.getElementById("leaveRoll").value.trim();
@@ -1660,7 +1695,7 @@ function generateLeaveApplication(){
     const reason=document.getElementById("leaveReason").value.trim();
     if(!name||!roll||!branch||!from||!to||!reason){ alert("Please fill all the details."); return; }
     if(new Date(to)<new Date(from)){ alert("Leave To date cannot be before Leave From date."); return; }
-    const application=`To,
+        const application=`To,
 The Head of Department,
 Department of Computer Science and Engineering
 Ambalika Institute of Management & Technology
@@ -1684,6 +1719,38 @@ ${branch}
 Ambalika Institute of Management & Technology`;
     document.getElementById("applicationText").innerText=application;
     document.getElementById("leaveResult").style.display="block";
+}
+
+function printApplication() {
+    const appContent = document.getElementById("applicationText").innerText;
+    if(!appContent) {
+        alert("Generate the application first.");
+        return;
+    }
+    const printWindow = window.open("", "_blank", "width=800,height=600");
+    printWindow.document.write(`
+        <html>
+        <head>
+            <title>Print Leave Application</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    padding: 40px;
+                    line-height: 1.8;
+                    color: #000;
+                    background: #fff;
+                    white-space: pre-line;
+                    font-size: 14pt;
+                }
+            </style>
+        </head>
+        <body>${appContent}</body>
+        </html>
+    `);
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
 }
 
 function copyApplication(){
@@ -2023,4 +2090,4 @@ document
 </script>
 
 </body>
-  </html> 
+  </html>
